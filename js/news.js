@@ -62,6 +62,7 @@ const displayNewsDetails = news => {
         news.forEach(elem => {
             // console.log(elem);
             // const { title, details, image_url } = elem;
+
             const newsDiv = document.createElement('div');
             newsDiv.classList.add('card');
             newsDiv.innerHTML = `
@@ -73,7 +74,7 @@ const displayNewsDetails = news => {
                                 <p>${elem.author.name}</p>
                                 <p>Total View: ${elem.total_view}</p>
                                 <div class="card-actions justify-end">
-                                <label for="my-modal-6" onclick="loadNewsDetails('${elem.details}')" class="btn btn-primary modal-button">Show Details</label>
+                                <label for="my-modal-6"  onclick="loadNewsDetails('${elem._id}')" class="btn btn-primary modal-button">Show Details</label>
                                 </div>
                    </div>
             `;
@@ -103,19 +104,24 @@ const loadNewsDetails = async news => {
     const url = `https://openapi.programming-hero.com/api/news/${news}`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.data);
+    showNewsDetails(data.data);
 }
 
 // const showModal = (title, details, image_url) => {
-//     const modalBody = document.getElementById('modal-body');
-//     modalBody.textContent = "";
-//     modalBody.innerHTML = `
+//     console.log(title, details, image_url);
+//     // const modalBody = document.getElementById('modal-body');
+//     // modalBody.textContent = "";
+//     // modalBody.innerHTML = `
 
-//                 <p class="py-4">${title}</p>
-//                 <p>${details}</p>
-//                 <img src="${image}"> 
-//                 `;
+//     //             <p class="py-4">${title}</p>
+//     //             <p>${details}</p>
+//     //             <img src="${image}">
+//     //             `;
 // }
 const showNewsDetails = news => {
-
+    console.log(news);
+    const modalTitle = document.getElementById('news-details');
+    // modalTitle.innerText = news.category_id;
 }
+
+loadAllNews();
