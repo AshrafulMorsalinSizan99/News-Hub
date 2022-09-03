@@ -69,7 +69,7 @@ const displayNewsDetails = news => {
     }
     else {
 
-        // console.log(news.length);
+
         news.forEach(elem => {
             // console.log(elem);
             // const { title, details, image_url } = elem;
