@@ -119,9 +119,17 @@ const loadNewsDetails = async news => {
 //     //             `;
 // }
 const showNewsDetails = news => {
-    console.log(news);
+    // console.log(news[0]);
+    const imgContainer = document.getElementById('img-container');
+    imgContainer.innerHTML = `
+   <img src="${news[0].image_url}"> 
+    `;
     const modalTitle = document.getElementById('news-details');
-    // modalTitle.innerText = news.category_id;
+    modalTitle.innerText = news[0].title;
+
+    const newsDescription = document.getElementById('news-description');
+    newsDescription.innerText = news[0].details;
+
 }
 
 loadAllNews();
