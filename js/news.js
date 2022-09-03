@@ -3,6 +3,7 @@ const loadAllNews = async () => {
     const data = await res.json();
     return data;
 
+
 }
 // const loadAllNewsIndividual = async () => {
 //     const response = await fetch(`https://openapi.programming-hero.com/api/news/category/'0${category_id}'`);
@@ -37,11 +38,19 @@ const loadNews = async (categoryId) => {
     // console.log(data);
     // console.log(categoryId);
     const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayNewsDetails(data.data);
+    }
+    catch (error) {
+        console.log(error);
+    }
     // console.log(url);
-    const res = await fetch(url);
-    const data = await res.json();
-    displayNewsDetails(data.data);
+
     // console.log(data.data[0]);
+
+
 
 }
 const displayNewsDetails = news => {
