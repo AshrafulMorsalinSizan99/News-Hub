@@ -46,8 +46,40 @@ const loadNews = async (categoryId) => {
 }
 const displayNewsDetails = news => {
     const newsContainer = document.getElementById('news-container');
+    const notFound = document.getElementById('no-found-msg');
     // newsContainer.innerHTML = ``;
     newsContainer.textContent = '';
+    notFound.textContent = '';
+
+    if (news.length === 0) {
+        notFound.innerHTML = `
+        <h2 class="text-center">No news found</h2>
+        `;
+        return;
+    }
+    else {
+        // console.log(news.length);
+        news.forEach(elem => {
+            // console.log(elem);
+            // const { title, details, image_url } = elem;
+            const newsDiv = document.createElement('div');
+            newsDiv.classList.add('card');
+            newsDiv.innerHTML = `
+                   <figure><img src="${elem.image_url}" alt="Album"></figure>
+                   <div class="card-body">
+                                <h2 class="card-title">${elem.title}</h2>
+                                <p>${elem.details.length > 250 ? elem.details.slice(0, 250) + '...' : elem.details}</p>
+                                <img src="${elem.author.img}">
+                                <p>${elem.author.name}</p>
+                                <p>Total View: ${elem.total_view}</p>
+                                <div class="card-actions justify-end">
+                                <label for="my-modal-6" onclick="loadNewsDetails('${elem.details}')" class="btn btn-primary modal-button">Show Details</label>
+                                </div>
+                   </div>
+            `;
+            newsContainer.appendChild(newsDiv);
+        });
+    }
     // const newsDiv = document.createElement('div');
     // newsDiv.classList.add('card');
     // newsDiv.innerHTML = `
@@ -64,22 +96,26 @@ const displayNewsDetails = news => {
     //        </div>
     // `;
     // newsContainer.appendChild(newsDiv);
-    news.forEach(elem => {
-        const newsDiv = document.createElement('div');
-        newsDiv.classList.add('card');
-        newsDiv.innerHTML = `
-               <figure><img src="${elem.image_url}" alt="Album"></figure>
-               <div class="card-body">
-                            <h2 class="card-title">${elem.title}</h2>
-                            <p>${elem.details.length > 250 ? elem.details.slice(0, 250) + '...' : elem.details}</p>
-                            <img src="${elem.author.img}">
-                            <p>${elem.author.name}</p>
-                            <p>Total View: ${elem.total_view}</p>
-                            <div class="card-actions justify-end">
-                                <button class="btn btn-primary">Show Details</button>
-                            </div>
-               </div>
-        `;
-        newsContainer.appendChild(newsDiv);
-    });
+
+}
+
+const loadNewsDetails = async news => {
+    const url = `https://openapi.programming-hero.com/api/news/${news}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.data);
+}
+
+// const showModal = (title, details, image_url) => {
+//     const modalBody = document.getElementById('modal-body');
+//     modalBody.textContent = "";
+//     modalBody.innerHTML = `
+
+//                 <p class="py-4">${title}</p>
+//                 <p>${details}</p>
+//                 <img src="${image}"> 
+//                 `;
+// }
+const showNewsDetails = news => {
+
 }
