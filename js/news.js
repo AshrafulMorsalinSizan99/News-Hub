@@ -45,6 +45,7 @@ const loadNews = async (categoryId) => {
 
 }
 const displayNewsDetails = news => {
+    toggleLoader(true);
     const newsContainer = document.getElementById('news-container');
     const notFound = document.getElementById('no-found-msg');
     // newsContainer.innerHTML = ``;
@@ -58,6 +59,7 @@ const displayNewsDetails = news => {
         return;
     }
     else {
+
         // console.log(news.length);
         news.forEach(elem => {
             // console.log(elem);
@@ -80,6 +82,7 @@ const displayNewsDetails = news => {
             `;
             newsContainer.appendChild(newsDiv);
         });
+        toggleLoader(false);
     }
     // const newsDiv = document.createElement('div');
     // newsDiv.classList.add('card');
@@ -98,6 +101,12 @@ const displayNewsDetails = news => {
     // `;
     // newsContainer.appendChild(newsDiv);
 
+}
+const toggleLoader = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('hidden')
+    }
 }
 
 const loadNewsDetails = async news => {
